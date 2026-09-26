@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 
-import byLengthJson from "./data/words-by-length.json";
+import { WORDS } from "./data/words";
 
 export type LexiconIndex = {
   byLength: Map<number, string[]>;
@@ -14,11 +14,14 @@ export function loadLexicon(): LexiconIndex {
   if (cached) return cached;
   const byLength = new Map<number, string[]>();
   const set = new Set<string>();
-  for (const [key, words] of Object.entries(byLengthJson as Record<string, string[]>)) {
-    const n = Number(key);
-    const list = words.map((w) => w.toLowerCase());
-    byLength.set(n, list);
-    for (const w of list) set.add(w);
+  for (const raw of WORDS) {
+    const w = raw.toLowerCase();
+    const n = w.length;
+    if (n < 3 || n > 12) continue;
+    const list = byLength.get(n);
+    if (list) list.push(w);
+    else byLength.set(n, [w]);
+    set.add(w);
   }
   cached = { byLength, set, size: set.size };
   return cached;
@@ -66,7 +69,9 @@ export function nearestNeighbor(word: string): string | null {
 
 export function lexiconCounts(): Record<string, number> {
   const out: Record<string, number> = {};
-  for (const [n, list] of loadLexicon().byLength) out[String(n)] = list.length;
+  for (const [n, list] of loadLexicon().byLength) {
+    out[String(n)] = list.length;
+  }
   return out;
 }
 
