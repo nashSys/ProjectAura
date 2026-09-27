@@ -16,7 +16,10 @@ export type AnomalyResult = {
   parts: AnomalyParts;
   lexicon: "hit" | "near" | "miss";
   neighbor: string | null;
+  convertedFrom: string | null;
 };
+
+export const NEAR_CONVERT_P = 1 / 50;
 
 function clamp01(n: number): number {
   return Math.max(0, Math.min(1, n));
@@ -72,5 +75,6 @@ export function scoreAnomaly(word: string, place: PlaceResult, readings: SeerRea
     parts,
     lexicon,
     neighbor,
+    convertedFrom: null,
   };
 }

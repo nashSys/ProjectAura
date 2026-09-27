@@ -13,7 +13,11 @@ export function formatDraw(
     `seed: ${draw.seed}`,
     `lexicon: ${anomaly.lexicon}`,
   ];
-  if (anomaly.neighbor) lines.push(`neighbor: ${anomaly.neighbor}`);
+  if (anomaly.convertedFrom) {
+    lines.push(`near_convert: ${anomaly.convertedFrom.toUpperCase()} -> ${draw.word.toUpperCase()}`);
+  } else if (anomaly.neighbor) {
+    lines.push(`neighbor: ${anomaly.neighbor}`);
+  }
   lines.push(
     "",
     "parts:",
@@ -49,8 +53,8 @@ export function formatInspect(gridArt: string, reading: {
   glyph: string;
   kind: string;
   visualScore: number;
-  prior: number;
   posterior: number;
+  prior: number;
   distribution: { glyph: string; posterior: number; visualScore: number }[];
 }): string {
   const top = reading.distribution.slice(0, 8);
@@ -62,7 +66,10 @@ export function formatInspect(gridArt: string, reading: {
     `posterior: ${reading.posterior.toFixed(4)}`,
     "",
     "posterior:",
-    ...top.map((row) => `  ${row.glyph}  p=${row.posterior.toFixed(4)}  visual=${row.visualScore.toFixed(3)}`),
+    ...top.map(
+      (row) =>
+        `  ${row.glyph}  p=${row.posterior.toFixed(4)}  visual=${row.visualScore.toFixed(3)}`,
+    ),
     "",
     gridArt,
   ];

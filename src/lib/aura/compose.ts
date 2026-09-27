@@ -1,4 +1,4 @@
-import { scoreAnomaly, type AnomalyResult } from "./anomaly";
+import { NEAR_CONVERT_P, scoreAnomaly, type AnomalyResult } from "./anomaly";
 import { makeGrid, type Grid } from "./grid";
 import { sampleLength } from "./length";
 import { placeLetters, type PlaceResult } from "./placer";
@@ -46,8 +46,25 @@ export function composeAura(opts: DrawOptions = {}): AuraDraw {
   }
 
   const placeRand = rngFromSeed(channelSeed(seed, "place"));
-  const place = placeLetters(length, glyphs, placeRand);
-  const anomaly = scoreAnomaly(place.word, place, readings);
+  let place = placeLetters(length, glyphs, placeRand);
+  let anomaly = scoreAnomaly(place.word, place, readings);
+
+  if (anomaly.lexicon === "near" && anomaly.neighbor) {
+    const convertRand = rngFromSeed(channelSeed(seed, "near-convert"));
+    if (convertRand() < NEAR_CONVERT_P) {
+      const convertedFrom = place.word;
+      const next = anomaly.neighbor;
+      place = {
+        ...place,
+        word: next,
+        slots: [...next],
+      };
+      anomaly = {
+        ...scoreAnomaly(place.word, place, readings),
+        convertedFrom,
+      };
+    }
+  }
 
   return { word: place.word, length, seed, grids, readings, place, anomaly };
 }
