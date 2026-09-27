@@ -15,7 +15,7 @@ export const AURA_STATUS_DESCRIPTION =
   "Report lexicon size by length, prior checksum, and glyph bank version. Does not draw.";
 
 export const AURA_INSPECT_DESCRIPTION =
-  "Read one 12x12 grid through the seer and return the posterior over letters and digits. Not a full draw.";
+  "Read one 12x12 grid through the seer and return the posterior over letters. Not a full draw.";
 
 export const AURA_REPLAY_DESCRIPTION =
   "Replay a previous draw from its seed. Same seed always yields the same word.";
