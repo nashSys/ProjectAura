@@ -23,11 +23,12 @@ export type AnomalyResult = {
 
 export const NEAR_CONVERT_P = 1 / 50;
 export const PRESENCE_FLOOR = 60;
+export const PRESENCE_ZERO = 70;
 export const PRESENCE_ATTEMPT_CAP = 32;
 
 export function displayPresence(raw: number): number {
-  const span = 100 - PRESENCE_FLOOR;
-  const scaled = ((raw - PRESENCE_FLOOR) * 100) / span;
+  const span = 100 - PRESENCE_ZERO;
+  const scaled = ((raw - PRESENCE_ZERO) * 100) / span;
   return Math.round(Math.max(0, Math.min(100, scaled)) * 10) / 10;
 }
 
