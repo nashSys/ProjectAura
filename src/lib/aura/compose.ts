@@ -87,11 +87,14 @@ export function composeAura(opts: DrawOptions = {}): AuraDraw {
       : session
         ? `draw:${drawNo}`
         : freshSeed();
-  const lengthOpts: LengthOpts = {
+  const lengthRoot = sittingRoot(session || undefined, seed);
+  const lengthRand = rngFromSeed(channelSeed(lengthRoot, "length"));
+  const lockedLength = sampleLength(lengthRand, {
     length: opts.length,
     minLength: opts.minLength,
     maxLength: opts.maxLength,
-  };
+  });
+  const lengthOpts: LengthOpts = { length: lockedLength };
 
   let best: ReturnType<typeof rollOnce> | null = null;
   let attempts = 0;

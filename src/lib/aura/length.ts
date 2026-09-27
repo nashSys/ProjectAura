@@ -4,7 +4,7 @@ export const MIN_LENGTH = 3;
 export const MAX_LENGTH = 12;
 
 const LENGTHS = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as const;
-const WEIGHTS = [8, 18, 22, 20, 14, 9, 5, 3, 1, 1];
+const WEIGHTS = [16, 24, 29, 14, 8, 4, 2, 1, 1, 1];
 
 export function sampleLength(
   rand: () => number,
