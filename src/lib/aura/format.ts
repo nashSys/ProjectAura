@@ -12,6 +12,9 @@ export function formatDraw(
     `presence: ${anomaly.presence.toFixed(1)}`,
     `seed: ${draw.seed}`,
   ];
+  if (anomaly.floorMissed) {
+    lines.push("presence_floor: missed");
+  }
   if (draw.session) {
     lines.push(`session: ${draw.session}`);
     if (draw.draw) lines.push(`draw: ${draw.draw}`);
@@ -31,7 +34,12 @@ export function formatDraw(
   );
 
   if (opts?.includeTrace) {
-    lines.push("", "trace:");
+    lines.push(
+      "",
+      "trace:",
+      `  presence_raw: ${anomaly.presenceRaw.toFixed(1)}`,
+      `  attempts: ${draw.attempts}`,
+    );
     for (const step of draw.place.steps) {
       const support = step.mode === "lexicon" ? ` support=${step.support}` : "";
       lines.push(`  [${step.index}] ${step.glyph.toUpperCase()} -> slot ${step.slot} ${step.mode}${support}`);

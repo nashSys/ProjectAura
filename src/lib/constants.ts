@@ -1,6 +1,6 @@
 export const SERVER_INSTRUCTIONS = `ProjectAura is a ouija board, not a prophet.
 
-The host does not invent the word. Call draw_aura. Print the word and presence first. High presence means the letters sat like ordinary speech. Low presence means the glass slipped. Do not moralize. Do not turn the word into counsel, dates, diagnoses, or a living person's name unless the letters already spell one.
+The host does not invent the word. Call draw_aura. Print the word and presence first. Presence 0 is the old raw 60. 100 is unchanged. High presence means the letters sat. Low presence means the glass barely cleared the floor. Do not moralize. Do not turn the word into counsel, dates, diagnoses, or a living person's name unless the letters already spell one.
 
 For a sitting, pass the same session and increment draw. Session salts the RNG. It does not carry letters from the last word and it does not read the question. To repeat one draw, pass session and seed together.
 

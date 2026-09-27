@@ -13,6 +13,8 @@ export type AnomalyParts = {
 
 export type AnomalyResult = {
   presence: number;
+  presenceRaw: number;
+  floorMissed: boolean;
   parts: AnomalyParts;
   lexicon: "hit" | "near" | "miss";
   neighbor: string | null;
@@ -20,6 +22,14 @@ export type AnomalyResult = {
 };
 
 export const NEAR_CONVERT_P = 1 / 50;
+export const PRESENCE_FLOOR = 60;
+export const PRESENCE_ATTEMPT_CAP = 32;
+
+export function displayPresence(raw: number): number {
+  const span = 100 - PRESENCE_FLOOR;
+  const scaled = ((raw - PRESENCE_FLOOR) * 100) / span;
+  return Math.round(Math.max(0, Math.min(100, scaled)) * 10) / 10;
+}
 
 function clamp01(n: number): number {
   return Math.max(0, Math.min(1, n));
@@ -71,8 +81,11 @@ export function scoreAnomaly(word: string, place: PlaceResult, readings: SeerRea
     0.1 * parts.visualConflict;
 
   const anomaly = Math.round(clamp01(mixed) * 1000) / 10;
+  const presenceRaw = Math.round((100 - anomaly) * 10) / 10;
   return {
-    presence: Math.round((100 - anomaly) * 10) / 10,
+    presenceRaw,
+    presence: displayPresence(presenceRaw),
+    floorMissed: false,
     parts,
     lexicon,
     neighbor,
