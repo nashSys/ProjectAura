@@ -19,8 +19,6 @@ export function formatDraw(
   lines.push(`lexicon: ${anomaly.lexicon}`);
   if (anomaly.convertedFrom) {
     lines.push(`near_convert: ${anomaly.convertedFrom.toUpperCase()} -> ${draw.word.toUpperCase()}`);
-  } else if (anomaly.neighbor) {
-    lines.push(`neighbor: ${anomaly.neighbor}`);
   }
   lines.push(
     "",
