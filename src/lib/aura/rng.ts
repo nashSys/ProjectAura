@@ -52,3 +52,9 @@ export function utcDay(date = new Date()): string {
 export function channelSeed(root: string, channel: string): string {
   return hashKey(["aura", root, channel]);
 }
+
+export function sittingRoot(session: string | undefined, seed: string): string {
+  const sitting = session?.trim();
+  if (!sitting) return seed;
+  return hashKey(["sitting", sitting, seed]);
+}

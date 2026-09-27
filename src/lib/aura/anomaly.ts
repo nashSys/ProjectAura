@@ -12,7 +12,7 @@ export type AnomalyParts = {
 };
 
 export type AnomalyResult = {
-  rating: number;
+  presence: number;
   parts: AnomalyParts;
   lexicon: "hit" | "near" | "miss";
   neighbor: string | null;
@@ -70,8 +70,9 @@ export function scoreAnomaly(word: string, place: PlaceResult, readings: SeerRea
     0.15 * parts.fallbackRate +
     0.1 * parts.visualConflict;
 
+  const anomaly = Math.round(clamp01(mixed) * 1000) / 10;
   return {
-    rating: Math.round(clamp01(mixed) * 1000) / 10,
+    presence: Math.round((100 - anomaly) * 10) / 10,
     parts,
     lexicon,
     neighbor,

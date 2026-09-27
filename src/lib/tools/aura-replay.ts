@@ -6,6 +6,8 @@ import { AURA_REPLAY_DESCRIPTION } from "~/lib/constants";
 
 const inputSchema = z.object({
   seed: z.string().min(1).describe("Seed from a previous draw_aura result."),
+  session: z.string().min(1).optional().describe("Sitting id from that draw, if any."),
+  draw: z.number().int().min(1).optional(),
   include_grids: z.boolean().optional(),
   include_trace: z.boolean().optional(),
 });
@@ -16,8 +18,13 @@ export const auraReplayTool = {
   inputSchema,
   execute: async (args: z.infer<typeof inputSchema>): Promise<string[]> => {
     try {
-      const draw = composeAura({ seed: args.seed });
-      return [formatDraw(draw, { includeGrids: args.include_grids ?? false, includeTrace: args.include_trace ?? false })];
+      const draw = composeAura({ seed: args.seed, session: args.session, draw: args.draw });
+      return [
+        formatDraw(draw, {
+          includeGrids: args.include_grids ?? false,
+          includeTrace: args.include_trace ?? false,
+        }),
+      ];
     } catch (err) {
       console.error("aura_replay failed:", err);
       return ["Error: could not replay that seed."];

@@ -9,10 +9,14 @@ export function formatDraw(
   const lines = [
     `word: ${draw.word.toUpperCase()}`,
     `length: ${draw.length}`,
-    `anomaly_rating: ${anomaly.rating.toFixed(1)}`,
+    `presence: ${anomaly.presence.toFixed(1)}`,
     `seed: ${draw.seed}`,
-    `lexicon: ${anomaly.lexicon}`,
   ];
+  if (draw.session) {
+    lines.push(`session: ${draw.session}`);
+    if (draw.draw) lines.push(`draw: ${draw.draw}`);
+  }
+  lines.push(`lexicon: ${anomaly.lexicon}`);
   if (anomaly.convertedFrom) {
     lines.push(`near_convert: ${anomaly.convertedFrom.toUpperCase()} -> ${draw.word.toUpperCase()}`);
   } else if (anomaly.neighbor) {
@@ -53,8 +57,8 @@ export function formatInspect(gridArt: string, reading: {
   glyph: string;
   kind: string;
   visualScore: number;
-  posterior: number;
   prior: number;
+  posterior: number;
   distribution: { glyph: string; posterior: number; visualScore: number }[];
 }): string {
   const top = reading.distribution.slice(0, 8);

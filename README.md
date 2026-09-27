@@ -6,12 +6,12 @@ Same shape as `nashSys/ResuMaxx` and `nashSys/experimental`: Next 16, pnpm, `mcp
 
 ## Tools
 
-- `draw_aura` `{ seed?, length?, min_length?, max_length?, include_grids?, include_trace? }`
-- `aura_replay` `{ seed, include_grids?, include_trace? }`
+- `draw_aura` `{ session?, draw?, seed?, length?, min_length?, max_length?, include_grids?, include_trace? }`
+- `aura_replay` `{ seed, session?, draw?, include_grids?, include_trace? }`
 - `aura_inspect_grid` `{ grid, seed? }`
 - `aura_status`
 
-Output leads with `word` and `anomaly_rating`. Higher rating means the letters and their seats are less like the board's usual voice.
+Output leads with `word` and `presence`. High presence means the letters sat like ordinary speech. Low presence means the glass slipped. `session` salts a sitting. It does not carry letters forward and it does not read the question.
 
 ## Lexicon
 
