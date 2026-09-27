@@ -204,74 +204,6 @@ const PAINT: Record<string, Painter> = {
     setCell(g, 7, 3);
     hline(g, 8, 3, 8);
   },
-  "0": (g) => {
-    hline(g, 2, 4, 7);
-    hline(g, 8, 4, 7);
-    vline(g, 3, 3, 7);
-    vline(g, 8, 3, 7);
-    setCell(g, 5, 5);
-    setCell(g, 6, 6);
-  },
-  "1": (g) => {
-    setCell(g, 3, 4);
-    vline(g, 5, 2, 7);
-    hline(g, 8, 4, 7);
-  },
-  "2": (g) => {
-    hline(g, 2, 4, 7);
-    vline(g, 8, 3, 4);
-    hline(g, 5, 4, 7);
-    vline(g, 3, 6, 7);
-    hline(g, 8, 3, 8);
-  },
-  "3": (g) => {
-    hline(g, 2, 4, 7);
-    vline(g, 8, 3, 4);
-    hline(g, 5, 5, 7);
-    vline(g, 8, 6, 7);
-    hline(g, 8, 4, 7);
-  },
-  "4": (g) => {
-    vline(g, 3, 2, 5);
-    hline(g, 5, 3, 8);
-    vline(g, 7, 2, 8);
-  },
-  "5": (g) => {
-    hline(g, 2, 3, 8);
-    vline(g, 3, 2, 4);
-    hline(g, 5, 3, 7);
-    vline(g, 8, 6, 7);
-    hline(g, 8, 3, 7);
-  },
-  "6": (g) => {
-    hline(g, 2, 4, 8);
-    vline(g, 3, 3, 7);
-    hline(g, 5, 3, 7);
-    vline(g, 8, 5, 7);
-    hline(g, 8, 4, 7);
-  },
-  "7": (g) => {
-    hline(g, 2, 3, 8);
-    setCell(g, 3, 7);
-    setCell(g, 4, 6);
-    vline(g, 5, 5, 8);
-  },
-  "8": (g) => {
-    hline(g, 2, 4, 7);
-    hline(g, 5, 4, 7);
-    hline(g, 8, 4, 7);
-    vline(g, 3, 3, 4);
-    vline(g, 8, 3, 4);
-    vline(g, 3, 6, 7);
-    vline(g, 8, 6, 7);
-  },
-  "9": (g) => {
-    hline(g, 2, 4, 7);
-    vline(g, 3, 3, 4);
-    vline(g, 8, 3, 7);
-    hline(g, 5, 4, 8);
-    hline(g, 8, 4, 7);
-  },
 };
 
 export const GLYPH_BANK: Record<string, Grid> = Object.fromEntries(
@@ -282,7 +214,7 @@ export const GLYPH_BANK: Record<string, Grid> = Object.fromEntries(
   }),
 );
 
-export const GLYPH_BANK_VERSION = "12x12-stroke-v1";
+export const GLYPH_BANK_VERSION = "12x12-stroke-v2-letters";
 
 export function glyphArt(glyph: string): string {
   const grid = GLYPH_BANK[glyph];
